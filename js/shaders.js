@@ -136,7 +136,15 @@
     vec3 bloom = texture(uBloomHalf, vUv).rgb * 0.12 + texture(uBloomQuarter, vUv).rgb * 0.16;
     vec3 c = scene + bloom * uBloom;
     c += vec3(0.0012, 0.0022, 0.0045);            // 极微弱的夜空底色
-    c = aces(c);
+
+    // 保色度色调映射：按最大通道决定亮度、沿用原始色度。
+    // 若按通道各自做 ACES，亮星的三个通道都会饱和到 1，颜色会被压成纯白。
+    float m = max(max(c.r, c.g), c.b);
+    vec3 chroma = c / max(m, 1e-6);
+    // 色度增强：幂次 > 1 会拉开通道差，让冷暖差异更明显
+    chroma = pow(chroma, vec3(1.6));
+    chroma /= max(max(chroma.r, chroma.g), chroma.b);
+    c = mix(aces(c), chroma * aces(vec3(m)).r, 0.85);
     c = pow(c, vec3(1.0 / 2.2));
 
     vec2 q = vUv - 0.5;

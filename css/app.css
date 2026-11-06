@@ -73,7 +73,7 @@ input[type=range]::-moz-range-thumb{width:11px;height:11px;border:none;border-ra
 
 .legend{margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
 .legend .bar{height:5px;border-radius:3px;margin:8px 0 5px;
-  background:linear-gradient(90deg,#ff9a4a,#ffc98a,#fff3d6,#f4f7ff,#c9daff,#93b6ff)}
+  background:linear-gradient(90deg,#ff4d1f,#ff8a3d,#ffc188,#fff6e8,#cfe0ff,#8fb2ff,#5b83ff)}
 .legend .ticks{display:flex;justify-content:space-between;font-size:9.5px;color:var(--dim);letter-spacing:.05em}
 .note{font-size:10px;line-height:1.65;color:rgba(135,152,179,.85);margin-top:11px}
 
