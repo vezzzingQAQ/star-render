@@ -1,0 +1,18 @@
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# 本地临时产物
+.screenshots/
+.trae-html-share-packages/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 依赖
+node_modules/

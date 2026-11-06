@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HYG 星表 · 三维恒星视界</title>
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+<canvas id="gl"></canvas>
+
+<div class="ui">
+  <header class="panel" id="title">
+    <div class="kicker">Hyg Database · v3.8</div>
+    <h1>三维恒星视界</h1>
+    <div class="rule"></div>
+    <p class="sub"><b id="cnt">—</b> 颗恒星 · 真实视差距离<br>亮度按物理流量映射，颜色由 B−V 色指数推算</p>
+  </header>
+
+  <section class="panel" id="hud">
+    <div class="row"><span>距太阳</span><b id="hud-dist">0.00 ly</b></div>
+    <div class="row"><span>坐标 / pc</span><b id="hud-pos">0, 0, 0</b></div>
+    <div class="row"><span>飞行速度</span><b id="hud-speed" class="hot">2.0 pc/s</b></div>
+    <div class="row"><span>渲染恒星</span><b id="hud-count">—</b></div>
+    <div class="row"><span>帧率</span><b id="hud-fps">—</b></div>
+  </section>
+
+  <section class="panel" id="keys">
+    <div class="kicker">Navigation</div>
+    <div class="grid">
+      <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><span>前后 / 左右平移</span>
+      <span><kbd>Q</kbd><kbd>E</kbd></span><span>下降 / 上升</span>
+      <span><kbd>Shift</kbd></span><span>加速 10×</span>
+      <span>鼠标拖拽</span><span>转动视角</span>
+      <span>滚轮</span><span>调整航速</span>
+      <span><kbd>R</kbd> / 点击</span><span>回到太阳 / 选中恒星</span>
+    </div>
+  </section>
+
+  <section class="panel" id="controls">
+    <div class="kicker">Optics</div>
+    <div class="ctl">
+      <div class="lab"><span>曝光</span><b id="val-exposure">8.0×</b></div>
+      <input id="range-exposure" type="range" min="0.4" max="30" step="0.1" value="8">
+    </div>
+    <div class="ctl">
+      <div class="lab"><span>极限星等</span><b id="val-limit">12.0</b></div>
+      <input id="range-limit" type="range" min="2" max="16" step="0.5" value="12">
+    </div>
+    <div class="ctl">
+      <div class="lab"><span>光晕强度</span><b id="val-bloom">1.0</b></div>
+      <input id="range-bloom" type="range" min="0" max="2" step="0.05" value="1">
+    </div>
+    <div class="legend">
+      <div class="kicker">Spectral Color</div>
+      <div class="bar"></div>
+      <div class="ticks"><span>M 3000K</span><span>G 5800K</span><span>O 30000K</span></div>
+      <div class="note">球体大小为视亮度示意（含透视近大远小），表面亮度严格按 F = 10<sup>−0.4m</sup> 线性映射。</div>
+    </div>
+  </section>
+
+  <div class="panel" id="card" hidden>
+    <div class="top">
+      <div>
+        <div class="nm" id="card-name">—</div>
+        <div class="des" id="card-des">—</div>
+      </div>
+      <div class="x" id="card-close">✕</div>
+    </div>
+    <div class="stats">
+      <div class="st">视星等<b id="card-mag">—</b></div>
+      <div class="st">绝对星等<b id="card-absmag">—</b></div>
+      <div class="st">距离<b id="card-dist">—</b></div>
+      <div class="st">光谱型<b id="card-spec">—</b></div>
+      <div class="st">有效温度<b id="card-temp">—</b></div>
+      <div class="st">赤经 / 赤纬<b id="card-radec">—</b></div>
+    </div>
+  </div>
+
+  <div id="marker" hidden></div>
+</div>
+
+<div id="boot">
+  <div class="b">
+    <div class="k">HYG Database</div>
+    <div class="t">载入星表</div>
+    <div class="l"></div>
+  </div>
+</div>
+
+<script src="data/stars.js"></script>
+<script src="js/color.js"></script>
+<script src="js/data.js"></script>
+<script src="js/shaders.js"></script>
+<script src="js/camera.js"></script>
+<script src="js/renderer.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
